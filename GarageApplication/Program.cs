@@ -116,29 +116,5 @@ namespace GarageApplication
             }
 
         }
-
-            private static void searchVehicles()
-        {
-            Console.Write("registration number: ");
-            string? regN = Console.ReadLine();
-
-            Console.Write("Color: ");
-            string? color = Console.ReadLine();
-
-            Console.Write("Number Of Wheels: ");
-            string NumberOfWheels = Console.ReadLine();
-
-            var vehicle = new Vehicle();
-
-            if (vehicle != null)
-            {
-                Console.WriteLine($"{vehicle.GetType().Name} with Reg. No {vehicle.RegistrationNumber} Found successfully.");
-            }
-            else
-            {
-                Console.WriteLine($"This vehicle could not be found.");
-            }
-
-        }
     }
 }
