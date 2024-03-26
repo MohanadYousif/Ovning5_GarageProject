@@ -1,6 +1,6 @@
 ﻿using GarageApplication.Controllers;
 
-namespace GarageApplication
+namespace GarageApplication.Test
 {
     public class GarageHandlerTest
     {
@@ -16,6 +16,25 @@ namespace GarageApplication
 
             // Assert
             Assert.Contains(vehicle, garageHandler.SearchVehicles(v => v != null));
+        }        
+
+        [Fact]
+        public void getAllVehicles_Success()
+        {
+            // Arrange
+            var garageHandler = new GarageHandler(5);
+            var vehicle1 = new Car("ABC123", "Red", 4, 5);
+            var vehicle2 = new Motorcycle("DEF456", "Blue", 2, false);
+            garageHandler.ParkVehicle(vehicle1);
+            garageHandler.ParkVehicle(vehicle2);
+
+            //Act
+            var vehicleList = garageHandler.GetAllVehicles();
+
+            // Assert
+            Assert.True(vehicleList.Length > 0);
+            Assert.Equal("ABC123", vehicleList[0].RegistrationNumber);
+            Assert.Equal("Blue", vehicleList.ElementAt(1).Color);
         }
 
         [Fact]
@@ -34,24 +53,6 @@ namespace GarageApplication
         }
 
         [Fact]
-        public void ListAllVehicles_Success()
-        {
-            // Arrange
-            var garageHandler = new GarageHandler(5);
-            var vehicle1 = new Car("ABC123", "Red", 4, 5);
-            var vehicle2 = new Motorcycle("DEF456", "Blue", 2, false);
-            garageHandler.ParkVehicle(vehicle1);
-            garageHandler.ParkVehicle(vehicle2);
-
-            //Act
-            var vehicleList = garageHandler.getAllVehicles();
-
-            // Assert
-            Assert.True(vehicleList.Length > 0);
-            Assert.Equal("ABC123", vehicleList[0].RegistrationNumber);
-        }
-
-        [Fact]
         public void getVehicleTypes_Success()
         {
             // Arrange
@@ -62,11 +63,31 @@ namespace GarageApplication
             garageHandler.ParkVehicle(vehicle2);
 
             //Act
-            var vehicleList = garageHandler.getVehicleTypes();
+            var vehicleList = garageHandler.GetVehicleTypes();
 
             //Assert
             Assert.True(vehicleList.ElementAt(0).FirstOrDefault() is Car);
             Assert.True(vehicleList.ElementAt(1).FirstOrDefault() is Motorcycle);
+
+        }
+
+        [Fact]
+        public void GetVehiclesByRegNumber_Success()
+        {
+            // Arrange
+            var garageHandler = new GarageHandler(2);
+            var vehicle1 = new Car("ABC123", "Red", 4, 5);
+            var vehicle2 = new Motorcycle("DEF456", "Blue", 2, false);
+            garageHandler.ParkVehicle(vehicle1);
+            garageHandler.ParkVehicle(vehicle2);
+
+            //Act
+            var vehicle = garageHandler.GetVehiclesByRegNumber("aBc123");
+
+            //Assert
+            Assert.Equal("ABC123", vehicle.RegistrationNumber);
+            Assert.Equal(4, vehicle.NumberOfWheels);
+            Assert.True(vehicle is Car);
 
         }
     }

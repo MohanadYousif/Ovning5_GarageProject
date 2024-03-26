@@ -2,11 +2,11 @@
 {
     internal interface IGarageHandler
     {
-        public Vehicle[] getAllVehicles();
-        public IEnumerable<IGrouping<string, Vehicle>> getVehicleTypes();
+        public Vehicle[] GetAllVehicles();
+        public IEnumerable<IGrouping<string, Vehicle>> GetVehicleTypes();
         public void ParkVehicle(Vehicle vehicle);
         public void RemoveVehicle(string registrationNumber);
-        //public void GetVehiclesByRegNumber(string regN);
+        public Vehicle GetVehiclesByRegNumber(string registrationNumber);
         public IEnumerable<Vehicle> SearchVehicles(Func<Vehicle, bool> predicate);
     }
 }

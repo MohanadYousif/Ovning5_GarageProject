@@ -1,4 +1,5 @@
 ﻿using GarageApplication.Controllers;
+using System.Linq.Expressions;
 
 namespace GarageApplication
 {
@@ -47,15 +48,11 @@ namespace GarageApplication
                         garageHandler.ParkVehicle(parkVehicleInGarage());
                         break;
                     case "4":
-                        Console.Write("Enter the registration number of the vehicle to remove: ");
                         string? regNo = Console.ReadLine();
                         garageHandler.RemoveVehicle(regNo);
                         break;
                     case "5":
-                        Console.Write("Enter the registration number of the vehicle to search: ");
-                        string? seaRegNo = Console.ReadLine();
-                        var vehicle = garageHandler.SearchVehicles(v => v.RegistrationNumber.ToUpper() == seaRegNo.ToUpper()).FirstOrDefault();
-                        Console.WriteLine($"{vehicle.GetType().Name} with Reg. No {vehicle.RegistrationNumber} Found successfully.");
+                        searchVehicleByRegistrationNumber();
                         break;
                     case "6":
                         exit = true;
@@ -69,7 +66,7 @@ namespace GarageApplication
 
         private static void ListAllVehicles()
         {
-            foreach (var vehicle in garageHandler.getAllVehicles())
+            foreach (var vehicle in garageHandler.GetAllVehicles())
             {
                 if (vehicle != null)
                 {
@@ -80,7 +77,7 @@ namespace GarageApplication
 
         private static void ListVehicleTypes()
         {
-            foreach (var group in garageHandler.getVehicleTypes())
+            foreach (var group in garageHandler.GetVehicleTypes())
             {
                 Console.WriteLine($"{group.Key}: {group.Count()}");
             }
@@ -103,15 +100,45 @@ namespace GarageApplication
             return new Car(reg, color, numberOfWheels, NumberOfSeats);
         }
 
-        //private static void searchVehicle()
-        //{
-        //    Console.WriteLine("1. Search a vehicle by Reg N.");
-        //    Console.WriteLine("2. Search a vehicle by color and number of wheels ");
-        //    Console.WriteLine("3. Search a vehicle by type, color and number of wheels");
-        //    Console.WriteLine("4. Search a vehicle by type ");
-        //    Console.WriteLine("5. Search a vehicle by color ");
+        private static void searchVehicleByRegistrationNumber()
+        {
+            Console.WriteLine("Enter a vehicle registration number :");
+            string? regN = Console.ReadLine();
+            Vehicle vehicle = garageHandler.GetVehiclesByRegNumber(regN);
 
+            if (vehicle != null)
+            {
+                Console.WriteLine($"{vehicle.GetType().Name} with Reg. No {vehicle.RegistrationNumber} Found successfully.");
+            }
+            else
+            {
+                Console.WriteLine($"This vehicle could not be found.");
+            }
 
-        //}
+        }
+
+            private static void searchVehicles()
+        {
+            Console.Write("registration number: ");
+            string? regN = Console.ReadLine();
+
+            Console.Write("Color: ");
+            string? color = Console.ReadLine();
+
+            Console.Write("Number Of Wheels: ");
+            string NumberOfWheels = Console.ReadLine();
+
+            var vehicle = new Vehicle();
+
+            if (vehicle != null)
+            {
+                Console.WriteLine($"{vehicle.GetType().Name} with Reg. No {vehicle.RegistrationNumber} Found successfully.");
+            }
+            else
+            {
+                Console.WriteLine($"This vehicle could not be found.");
+            }
+
+        }
     }
 }

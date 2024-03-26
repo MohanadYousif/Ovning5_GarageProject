@@ -7,7 +7,7 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <RootNamespace>GarageApplication</RootNamespace>
+    <RootNamespace>GarageApplication.Test</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

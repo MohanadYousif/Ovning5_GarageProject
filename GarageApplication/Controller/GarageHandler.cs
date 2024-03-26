@@ -12,16 +12,16 @@ namespace GarageApplication.Controllers
         }
 
         // Metod för att lista samtliga parkerade fordon
-        public Vehicle[] getAllVehicles()
+        public Vehicle[] GetAllVehicles()
         {
             return vehicles;
         }
 
         // Metod för att lista fordonstyper och antal i garaget
-        public IEnumerable<IGrouping<string, Vehicle>> getVehicleTypes()
+        public IEnumerable<IGrouping<string, Vehicle>> GetVehicleTypes()
         {
             return vehicles.Where(v => v != null).GroupBy(v => v.GetType().Name);
-            
+
         }
 
         // Metod för att lägga till ett fordon i garaget
@@ -56,6 +56,12 @@ namespace GarageApplication.Controllers
                     break;
                 }
             }
+        }
+
+        // Method to find a specific vehicle by registration number
+        public Vehicle GetVehiclesByRegNumber(string registrationNumber)
+        {
+            return garage.FirstOrDefault(vehicle => string.Equals(vehicle.RegistrationNumber.ToUpper(), registrationNumber.ToUpper()));
         }
 
         public IEnumerable<Vehicle> SearchVehicles(Func<Vehicle, bool> predicate)

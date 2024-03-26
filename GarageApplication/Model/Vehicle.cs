@@ -8,6 +8,9 @@ namespace GarageApplication
         public int NumberOfWheels { get; set; }
         // Andra egenskaper kan läggas till här
 
+        public Vehicle()
+        {
+        }
         public Vehicle(string RegistrationNumber, string Color, int NumberOfWheels)
         {
             this.RegistrationNumber = RegistrationNumber;
